@@ -8,6 +8,5 @@ spec:
   ports:
   - port: 25565
     targetPort: 25565
-  type: NodePort
-  externalIPs:
-    - 3.14.1.101
+    name: minecraft
+  type: LoadBalancer
