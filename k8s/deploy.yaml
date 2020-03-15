@@ -1,20 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: minecraft-1-15-1
-  namespace: minecraft
+  name: minecraft
 spec:
   selector:
     matchLabels:
-      app: minecraft-1-15-1
+      app: minecraft
   template:
     metadata:
       labels:
-        app: minecraft-1-15-1
+        app: minecraft
     spec:
       containers:
-      - name: minecraft-1-15-1
-        image: ducoterra/minecraft_1.15.1:0.0.8
+      - name: minecraft
+        image: hub.ducoterra.net/ducoterra/minecraft:20w11a.2
         ports:
         - containerPort: 25565
         volumeMounts:
@@ -31,12 +30,12 @@ spec:
           value: "4"
         resources:
           requests:
-            memory: 1Mi
-            cpu: 1m
+            memory: "2Gi"
+            cpu: 250m
           limits:
             memory: "4Gi"
             cpu: "4"
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: minecraft-1-15-1
+          claimName: minecraft

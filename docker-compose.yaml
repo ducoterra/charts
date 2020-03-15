@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  mc:
+  minecraft:
     build: .
-    image: ducoterra/minecraft_1.15.1:0.0.8
+    image: hub.ducoterra.net/ducoterra/minecraft:20w11a.2
     ports:
       - 25565:25565
     volumes:
