@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: minecraft
-        image: hub.ducoterra.net/ducoterra/minecraft:20w11a.2
+        image: hub.ducoterra.net/ducoterra/minecraft:20w12a.7
         ports:
         - containerPort: 25565
         volumeMounts:
