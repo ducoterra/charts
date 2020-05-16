@@ -1,7 +1,5 @@
 FROM openjdk:8-slim
 
-RUN apt update && apt install -y rsync
-
 WORKDIR /mc_server
 COPY ./server .
 
