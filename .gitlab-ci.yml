@@ -1,0 +1,38 @@
+variables:
+  CI_PROJECT_NAME: "minecraft"
+  CI_PROJECT_DIR: "."
+  CI_REGISTRY_IMAGE: hub.ducoterra.net/ducoterra/homer
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  only:
+    variables:
+    - $CI_COMMIT_TAG
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - echo $DEPLOY
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+
+deploy_to_prod:
+  variables:
+    DEPLOY: prod
+  stage: deploy
+  only:
+    variables:
+    - $CI_COMMIT_TAG
+  image:
+    name: debian:10
+    entrypoint: [""]
+  script:
+    - apt -qq update >> /dev/null && apt -qq install -y curl >> /dev/null
+    - curl -L -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    - chmod +x /usr/local/bin/kubectl
+    - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+    - helm template $CI_PROJECT_NAME --set tag=1.1.1 ./helm | kubectl apply -f -

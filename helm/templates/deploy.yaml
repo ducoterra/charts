@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: minecraft
+  name: {{ .Release.Name }}
 spec:
   selector:
     matchLabels:
-      app: minecraft
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: minecraft
+        app: {{ .Release.Name }}
     spec:
       containers:
-      - name: minecraft
-        image: hub.ducoterra.net/ducoterra/minecraft:1.15.2
+      - name: {{ .Release.Name }}
+        image: {{ .Values.image }}
         ports:
         - containerPort: 25565
         volumeMounts:
@@ -38,4 +38,4 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: minecraft
+          claimName: {{ .Release.Name }}

@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: minecraft
+  name: {{ .Release.Name }}
 spec:
   storageClassName: nfs-encrypted
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 64Gi
+      storage: 32Gi
