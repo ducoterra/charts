@@ -1,1 +1,2 @@
 image: hub.ducoterra.net/ducoterra/minecraft
+port: 25565

@@ -6,7 +6,7 @@ spec:
   selector:
     app: {{ .Release.Name }}
   ports:
-  - port: 25565
+  - port: {{ .Values.port }}
     targetPort: 25565
     name: {{ .Release.Name }}
   type: LoadBalancer
