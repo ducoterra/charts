@@ -19,6 +19,12 @@ spec:
         volumeMounts:
         - mountPath: /mc_data
           name: data
+        - name: properties
+          mountPath: /mc_data/server.properties
+          subPath: server.properties
+        - name: properties
+          mountPath: /mc_data/eula.txt
+          subPath: eula.txt
         tty: true
         stdin: true
         env:
@@ -33,9 +39,12 @@ spec:
             memory: "2Gi"
             cpu: 250m
           limits:
-            memory: "4Gi"
+            memory: "8Gi"
             cpu: "4"
       volumes:
       - name: data
         persistentVolumeClaim:
           claimName: {{ .Release.Name }}
+      - name: properties
+        configMap:
+          name: {{ .Release.Name }}
