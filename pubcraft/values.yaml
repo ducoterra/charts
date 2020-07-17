@@ -1,0 +1,3 @@
+image: hub.ducoterra.net/ducoterra/minecraft
+tag: 1.15.2_8
+port: 20100
