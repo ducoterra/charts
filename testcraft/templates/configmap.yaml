@@ -6,7 +6,6 @@ data:
   eula.txt: |
     eula=true
   server.properties: |
-    # if you see this it worked v2 boogaloo!
     max-tick-time=60000
     generator-settings=
     force-gamemode=false
