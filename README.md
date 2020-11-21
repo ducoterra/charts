@@ -71,4 +71,10 @@ kubectl cp <backup> <pod_name>:/mc_data
 
 ## Cool seeds
 
-with an amplified world, -8018833100564192815
+### 7485786574821478084
+
+Spawns you next to a nether portal with golden axe and pickaxe. River and Village close by.
+
+### -8018833100564192815
+
+Use with an amplified world, massive island

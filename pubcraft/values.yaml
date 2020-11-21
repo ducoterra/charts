@@ -1,3 +1,2 @@
-image: hub.ducoterra.net/ducoterra/minecraft
-tag: 1.15.2_8
+image: hub.ducoterra.net/ducoterra/minecraft:1.16.1_2
 port: 20100

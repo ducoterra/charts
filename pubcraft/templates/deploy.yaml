@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}
-        image: {{ .Values.image }}:{{ .Values.tag }}
+        image: {{ .Values.image }}
         ports:
         - containerPort: 25565
         volumeMounts:
