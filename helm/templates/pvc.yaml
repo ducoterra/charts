@@ -5,7 +5,6 @@ metadata:
   annotations:
     "helm.sh/resource-policy": keep
 spec:
-  storageClassName: nvme
   accessModes:
     - ReadWriteOnce
   resources:

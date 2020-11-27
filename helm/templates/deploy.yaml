@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}
-        image: {{ .Values.image }}:{{ .Values.tag }}
+        image: {{ .Values.image }}
         ports:
         - containerPort: 25565
         volumeMounts:
@@ -29,17 +29,15 @@ spec:
         stdin: true
         env:
         - name: MAX_RAM
-          value: "4"
+          value: {{ .Values.max_ram | quote }}
         - name: MIN_RAM
-          value: "1"
-        - name: THREADS
-          value: "4"
+          value: {{ .Values.min_ram | quote }}
         resources:
           requests:
-            memory: "2Gi"
+            memory: {{ .Values.min_ram }}Gi
             cpu: 250m
           limits:
-            memory: "8Gi"
+            memory: {{ .Values.max_ram }}Gi
             cpu: "4"
       volumes:
       - name: data
