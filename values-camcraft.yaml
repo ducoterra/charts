@@ -1,5 +1,5 @@
 image: hub.ducoterra.net/ducoterra/minecraft:1.16.4
-port: 25566
+port: 20101
 max_cpu: 8
 max_ram: 6
 server_props: |
@@ -16,7 +16,7 @@ server_props: |
   op-permission-level=4
   pvp=true
   snooper-enabled=true
-  level-type=amplified
+  level-type=default
   hardcore=false
   enable-command-block=false
   max-players=20
@@ -28,13 +28,13 @@ server_props: |
   spawn-npcs=true
   allow-flight=true
   level-name=world
-  view-distance=64
+  view-distance=32
   resource-pack=
   spawn-animals=true
   white-list=true
   generate-structures=true
   online-mode=true
-  max-build-height=512
+  max-build-height=256
   level-seed=
   prevent-proxy-connections=false
   use-native-transport=true

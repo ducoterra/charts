@@ -31,14 +31,14 @@ spec:
         - name: MAX_RAM
           value: {{ .Values.max_ram | quote }}
         - name: MIN_RAM
-          value: {{ .Values.min_ram | quote }}
+          value: {{ .Values.max_ram | quote }}
         resources:
           requests:
-            memory: {{ .Values.min_ram }}Gi
-            cpu: 250m
+            memory: {{ .Values.max_ram }}Gi
+            cpu: 1m
           limits:
             memory: {{ .Values.max_ram }}Gi
-            cpu: "4"
+            cpu: {{ .Values.max_cpu | quote }}
       volumes:
       - name: data
         persistentVolumeClaim:
