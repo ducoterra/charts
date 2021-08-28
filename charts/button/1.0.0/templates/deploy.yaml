@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - image: {{ required "A valid .Values.image entry required!" .Values.image }}:{{ required "A valid .Values.tag entry required!" .Values.tag }}
+          name: {{ .Release.Name }}
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}
+            - secretRef:
+                name: {{ .Release.Name }}
+            - secretRef:
+                name: postgres
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "250m"
+            requests:
+              memory: "1Mi"
+              cpu: "100m"

@@ -21,5 +21,6 @@ rsync -r $CHART_PATH/ charts/$APP/$VERSION
 touch charts/$APP/$VERSION/questions.yaml
 touch charts/$APP/item.yaml
 cp $APP_PATH/README.md charts/$APP/$VERSION
+cp charts/$APP/$VERSION/README.md charts/$APP/$VERSION/app-readme.md
 cp charts/$APP/$VERSION/values.yaml charts/$APP/$VERSION/ix_values.yaml
 ```
