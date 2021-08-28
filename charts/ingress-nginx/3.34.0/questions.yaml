@@ -1,0 +1,12 @@
+groups:
+  - name: "Let's Encrypt Config"
+    description: "Let's Encrypt configuration details for cert-manager"
+  - name: "Nginx Config"
+    description: "Nginx configuration details"
+questions:
+  - variable: email
+    description: "Let's Encrypt Email"
+    group: "Let's Encrypt Config"
+    label: "Let's Encrypt Email"
+    schema:
+      type: string

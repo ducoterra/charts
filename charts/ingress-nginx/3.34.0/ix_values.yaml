@@ -1,0 +1,11 @@
+image:
+  repository: k8s.gcr.io
+  image: ingress-nginx/controller
+  tag: "v0.47.0"
+
+controller:
+  service:
+    type: NodePort
+    nodePorts:
+      http: 9080
+      https: 9443
