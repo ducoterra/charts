@@ -1,0 +1,10 @@
+groups:
+  - name: "Test App Config"
+    description: "Configuration for the Truenas Scale test app"
+questions:
+  - variable: APPNAME
+    description: "Name of the app"
+    group: "Test App Config"
+    label: "App Name"
+    schema:
+      type: string
