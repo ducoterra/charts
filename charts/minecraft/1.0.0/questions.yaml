@@ -1,6 +1,8 @@
 groups:
   - name: "Server Config"
     description: "Minecraft Server Configuration"
+  - name: "Storage"
+    description: "Minecraft Server Storage"
 questions:
   - variable: port
     description: "Listen Port"

@@ -23,3 +23,25 @@ spec:
         env:
         - name: APPNAME
           value: "{{ .Values.APPNAME }}"
+        volumeMounts:
+        - mountPath: /data
+          name: data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}
+  annotations:
+    "helm.sh/resource-policy": keep
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 32Gi

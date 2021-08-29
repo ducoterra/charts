@@ -46,3 +46,5 @@ spec:
       - name: properties
         configMap:
           name: {{ .Release.Name }}
+      securityContext:
+        fsGroup: 2000
