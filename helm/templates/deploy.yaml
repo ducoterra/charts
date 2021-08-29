@@ -6,6 +6,8 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}
+    updateStrategy:
+      type: Recreate
   template:
     metadata:
       labels:
@@ -46,3 +48,5 @@ spec:
       - name: properties
         configMap:
           name: {{ .Release.Name }}
+      securityContext:
+        fsGroup: 2000
