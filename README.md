@@ -14,12 +14,12 @@ A collection of helm charts for ducoterra.net
 APP=app_name
 APP_PATH=/path/to/app/repo
 CHART_PATH=/path/to/chart
-VERSION=0.1.0
+VERSION=$(yq e '.version' $CHART_PATH/Chart.yaml)
 
 mkdir -p charts/$APP
+cp example_item.yaml charts/$APP/item.yaml
 rsync -r $CHART_PATH/ charts/$APP/$VERSION
 touch charts/$APP/$VERSION/questions.yaml
-touch charts/$APP/item.yaml
 cp $APP_PATH/README.md charts/$APP/$VERSION
 cp charts/$APP/$VERSION/README.md charts/$APP/$VERSION/app-readme.md
 cp charts/$APP/$VERSION/values.yaml charts/$APP/$VERSION/ix_values.yaml
