@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Release.Name }}
+        image: {{ .Values.image }}
+        ports:
+        - containerPort: 25565
+        volumeMounts:
+        - mountPath: /mc_data
+          name: data
+        - name: properties
+          mountPath: /mc_data/server.properties
+          subPath: server.properties
+        - name: properties
+          mountPath: /mc_data/eula.txt
+          subPath: eula.txt
+        tty: true
+        stdin: true
+        env:
+        - name: MAX_RAM
+          value: {{ .Values.max_ram | quote }}
+        - name: MIN_RAM
+          value: {{ .Values.max_ram | quote }}
+        resources:
+          requests:
+            memory: {{ .Values.max_ram }}Gi
+            cpu: 1m
+          limits:
+            memory: {{ .Values.max_ram }}Gi
+            cpu: {{ .Values.max_cpu | quote }}
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}
+      - name: properties
+        configMap:
+          name: {{ .Release.Name }}
