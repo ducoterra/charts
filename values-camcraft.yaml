@@ -1,7 +1,7 @@
 image: hub.ducoterra.net/ducoterra/minecraft:1.16.4
 port: 20101
 max_cpu: 8
-max_ram: 6
+max_ram: 8
 server_props: |
   max-tick-time=60000
   generator-settings=

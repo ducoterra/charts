@@ -6,8 +6,8 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}
-    updateStrategy:
-      type: Recreate
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -33,13 +33,13 @@ spec:
         - name: MAX_RAM
           value: {{ .Values.max_ram | quote }}
         - name: MIN_RAM
-          value: {{ .Values.max_ram | quote }}
+          value: "1"
         resources:
           requests:
-            memory: {{ .Values.max_ram }}Gi
+            memory: {{ div .Values.max_ram 2 }}Gi
             cpu: 1m
           limits:
-            memory: {{ .Values.max_ram }}Gi
+            memory: {{ add 1 .Values.max_ram }}Gi
             cpu: {{ .Values.max_cpu | quote }}
       volumes:
       - name: data
