@@ -1,6 +1,0 @@
-version: '3'
-
-services:
-  minecraft:
-    build: .
-    image: hub.ducoterra.net/ducoterra/minecraft:1.16.4
