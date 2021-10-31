@@ -1,4 +1,7 @@
-image: ducoterra/minecraft:1.16.4
+image: ducoterra/minecraft:latest
+get_server:
+  image: ducoterra/get-minecraft:latest
+server_version: "1.17.1"
 port: 20101
 max_cpu: 4
 max_ram: 4
