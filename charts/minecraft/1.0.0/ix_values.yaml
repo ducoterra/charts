@@ -1,1 +1,2 @@
-image: ducoterra/minecraft:1.16.4
+image: ducoterra/minecraft:latest
+server_version: "1.17.1"
