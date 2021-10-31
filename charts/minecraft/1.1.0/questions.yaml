@@ -1,0 +1,38 @@
+groups:
+  - name: "Server Config"
+    description: "Minecraft Server Configuration"
+  - name: "Storage"
+    description: "Minecraft Server Storage"
+questions:
+  - variable: server_version
+    description: "Server Version"
+    label: "Version"
+    group: "Server Config"
+    schema:
+      type: string
+      default: "1.17.1"
+      required: false
+  - variable: port
+    description: "Listen Port"
+    group: "Server Config"
+    label: "Port"
+    schema:
+      type: int
+      default: 25565
+      required: true
+  - variable: max_ram
+    description: "Total RAM allocated to the server"
+    group: "Server Config"
+    label: "RAM Limit (GiB)"
+    schema:
+      type: int
+      default: 4
+      required: true
+  - variable: max_cpu
+    description: "# CPU Cores Allocated to the server"
+    group: "Server Config"
+    label: "CPU Limit (# Cores)"
+    schema:
+      type: int
+      default: 4
+      required: true

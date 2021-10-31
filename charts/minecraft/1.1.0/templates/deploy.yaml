@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      initContainers:
+      - name: get-version
+        image: {{ .Values.get_server.image }}
+        imagePullPolicy: Always
+        env:
+        - name: SERVER_VERSION
+          value: {{ .Values.server_version }}
+        volumeMounts:
+        - mountPath: /downloads
+          name: data
+      - name: download-server
+        image: {{ .Values.get_server.image }}
+        imagePullPolicy: Always
+        command: ["bash", "-c", "curl -o server.jar $(cat SERVER_VERSION)"]
+        volumeMounts:
+        - mountPath: /downloads
+          name: data
+      containers:
+      - name: {{ .Release.Name }}
+        image: {{ .Values.image }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 25565
+        volumeMounts:
+        - mountPath: /mc_data
+          name: data
+        - name: properties
+          mountPath: /mc_data/server.properties
+          subPath: server.properties
+        - name: properties
+          mountPath: /mc_data/eula.txt
+          subPath: eula.txt
+        tty: true
+        stdin: true
+        env:
+        - name: MAX_RAM
+          value: {{ .Values.max_ram | quote }}
+        - name: MIN_RAM
+          value: "1"
+        resources:
+          requests:
+            memory: {{ div .Values.max_ram 2 }}Gi
+            cpu: 1m
+          limits:
+            memory: {{ add 1 .Values.max_ram }}Gi
+            cpu: {{ .Values.max_cpu | quote }}
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}
+      - name: properties
+        configMap:
+          name: {{ .Release.Name }}
+      securityContext:
+        fsGroup: 2000
