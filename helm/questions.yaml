@@ -6,6 +6,7 @@ groups:
 questions:
   - variable: server_version
     description: "Server Version"
+    label: "Version"
     group: "Server Config"
     schema:
       type: string
