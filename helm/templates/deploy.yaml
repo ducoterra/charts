@@ -13,9 +13,27 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      initContainers:
+      - name: get-version
+        image: {{ .Values.get_server.image }}
+        imagePullPolicy: Always
+        env:
+        - name: SERVER_VERSION
+          value: {{ .Values.server_version }}
+        volumeMounts:
+        - mountPath: /downloads
+          name: data
+      - name: download-server
+        image: {{ .Values.get_server.image }}
+        imagePullPolicy: Always
+        command: ["bash", "-c", "curl -o server.jar $(cat SERVER_VERSION)"]
+        volumeMounts:
+        - mountPath: /downloads
+          name: data
       containers:
       - name: {{ .Release.Name }}
         image: {{ .Values.image }}
+        imagePullPolicy: Always
         ports:
         - containerPort: 25565
         volumeMounts:
