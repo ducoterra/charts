@@ -3,6 +3,7 @@ SHELL := /bin/bash
 IMAGE ?= $(shell cat IMAGE):$(shell cat VERSION)
 IMAGE_LATEST ?= $(shell cat IMAGE):latest
 PWD ?= $(shell pwd)
+STASH ?= "common-update-stash"
 
 include .gitlab/make/docker.makefile
 include .gitlab/make/helm.makefile
@@ -17,9 +18,9 @@ warning:
 
 .PHONY: make-update
 make-update: warning
-	@git stash
+	@git stash save $(STASH)
 	-git subtree pull --prefix .gitlab git@gitlab.ducoterra.net:services/common.git main --squash
-	@if [-z "$(shell git stash list)"; then git stash pop; fi;
+	@if [ ! -z "$$(git stash list | grep -r 'stash@{0}.*common')" ]; then git stash pop; fi
 
 .PHONY: make-push
 make-push: warning
