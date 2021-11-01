@@ -21,7 +21,7 @@ make-stash-drop:
 	@if [ ! -z "$$(git stash list | grep -r 'stash@{0}.*common')" ]; then git stash drop; fi
 
 .PHONY: make-update
-make-update: warning
+make-update:
 	@git stash save $(STASH)
 	-git subtree pull --prefix .gitlab git@gitlab.ducoterra.net:services/common.git main --squash
 	@if [ ! -z "$$(git stash list | grep -r 'stash@{0}.*common')" ]; then git stash pop; fi
