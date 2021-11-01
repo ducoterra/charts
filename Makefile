@@ -14,3 +14,10 @@ make-update:
 	@git stash
 	-git subtree pull --prefix .gitlab git@gitlab.ducoterra.net:services/common.git main --squash
 	@git stash pop
+
+.PHONY: make-push
+make-push:
+	@make make-update
+	@git remote add common git@gitlab.ducoterra.net:services/common.git
+	@git subtree push --prefix .gitlab common main
+	@git remote remove common
