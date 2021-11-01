@@ -32,3 +32,4 @@ make-push: warning
 	@git remote add common git@gitlab.ducoterra.net:services/common.git
 	@git subtree push --prefix .gitlab common main
 	@git remote remove common
+	@make make-update
