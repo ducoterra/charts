@@ -13,7 +13,7 @@ include .gitlab/make/truenas.makefile
 make-update:
 	@git stash
 	-git subtree pull --prefix .gitlab git@gitlab.ducoterra.net:services/common.git main --squash
-	@git stash pop
+	@if [-z "$(shell git stash list)"; then git stash pop; fi;
 
 .PHONY: make-push
 make-push:
