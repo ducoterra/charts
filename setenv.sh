@@ -1,1 +1,0 @@
-kubectl config set current-context k3os-alpha.dnet-ducoterra-minecraft
