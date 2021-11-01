@@ -16,6 +16,10 @@ warning:
 	@printf "Cancel with ctrl + c within 3 seconds."
 	@sleep 3
 
+.PHONY: make-stash-drop
+make-stash-drop:
+	@if [ ! -z "$$(git stash list | grep -r 'stash@{0}.*common')" ]; then git stash drop; fi
+
 .PHONY: make-update
 make-update: warning
 	@git stash save $(STASH)
