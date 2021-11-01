@@ -20,7 +20,3 @@ build:
 push:
 	docker buildx build --platform linux/amd64 --push . -t $(IMAGE)
 	@docker buildx build --platform linux/amd64 --push . -t $(IMAGE_LATEST)
-
-.PHONY: run
-run:
-	docker run -it -v $(PWD):/mc_data $(IMAGE) bash
