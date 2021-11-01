@@ -12,5 +12,5 @@ include .gitlab/make/truenas.makefile
 .PHONY: make-update
 make-update:
 	@git stash
-	@git subtree pull --prefix .gitlab git@gitlab.ducoterra.net:services/common.git main --squash
+	-git subtree pull --prefix .gitlab git@gitlab.ducoterra.net:services/common.git main --squash
 	@git stash pop
