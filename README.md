@@ -2,9 +2,8 @@
 
 ```bash
 # Add the subtree as a remote
-git remote add common git@gitlab.ducoterra.net:services/common.git
-git subtree add --prefix .gitlab common main
+git subtree add --prefix .gitlab git@gitlab.ducoterra.net:services/common.git main --squash
 
 # Now you can run the following to update
-git subtree pull --prefix .gitlab common main
+make make-update
 ```
