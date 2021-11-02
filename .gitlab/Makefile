@@ -1,6 +1,7 @@
 SHELL := /bin/bash
 
-IMAGE ?= $(shell cat IMAGE):$(shell cat VERSION)
+VERSION ?= $(shell cat VERSION)
+IMAGE ?= $(shell cat IMAGE):$(VERSION)
 IMAGE_LATEST ?= $(shell cat IMAGE):latest
 PWD ?= $(shell pwd)
 STASH ?= "common-update-stash"
@@ -9,6 +10,7 @@ include .gitlab/make/docker.makefile
 include .gitlab/make/helm.makefile
 include .gitlab/make/kaniko.makefile
 include .gitlab/make/truenas.makefile
+include .gitlab/make/git.makefile
 
 .PHONY: warning
 warning:
@@ -22,9 +24,7 @@ make-stash-drop:
 
 .PHONY: make-update
 make-update:
-	@git stash save $(STASH)
-	-git subtree pull --prefix .gitlab git@gitlab.ducoterra.net:services/common.git main
-	@if [ ! -z "$$(git stash list | grep -r 'stash@{0}.*common')" ]; then git stash pop; fi
+	-git subtree pull --prefix .gitlab --message "Merge update from Common" -q git@gitlab.ducoterra.net:services/common.git main
 
 .PHONY: make-push
 make-push: warning
@@ -32,4 +32,3 @@ make-push: warning
 	@git remote add common git@gitlab.ducoterra.net:services/common.git
 	@git subtree push --prefix .gitlab common main
 	@git remote remove common
-	@make make-update
