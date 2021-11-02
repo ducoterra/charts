@@ -1,61 +1,34 @@
 # Minecraft
 
-## Getting server.jar
-
-![Click Installations](img/main.png)
-![Select the Options Menu](img/menu.png)
-![Click Edit](img/edit.png)
-![Click Download Server](img/server.png)
-
 ## Running Locally
 
 ```bash
-docker-compose build minecraft
-docker-compose up minecraft
+# download the most recent version of minecraft
+make get-server
+
+# Run the server
+docker-compose up
 ```
 
 ## Uploading to Docker Hub
 
-In docker-compose.yaml, update the image tag to:
+1. Update the version in the VERSION file.
+2. Build and push the new version
 
-```yaml
-...
-services:
-  minecraft:
-    build: .
-    image: <your_username>/minecraft:<version>-1
-    ports:
-...
-```
-
-then run
-
-```bash
-docker-compose push
-```
+    ```bash
+    make build
+    make push
+    ```
 
 ## Running in kubernetes
 
-In k8s/deploy.yaml, edit the deploy
-
-```yaml
-...
-    spec:
-      containers:
-      - name: minecraft
-        image: <your image from above>
-        ports:
-...
-```
-
-Then run the following
+Requires helm v3. Edit values.yaml and run the following:
 
 ```bash
-kubectl apply -f k8s/pvc
-kubectl apply -f k8s
+helm upgrade --install minecraft
 ```
 
-Your minecraft server will be available on port 25565
+Your minecraft server will be available on port 25565 by default.
 
 ## Create a Backup
 
