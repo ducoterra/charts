@@ -4,6 +4,14 @@ groups:
   - name: "Storage"
     description: "Minecraft Server Storage"
 questions:
+  - variable: server_version
+    description: "Server Version"
+    label: "Version"
+    group: "Server Config"
+    schema:
+      type: string
+      default: "1.17.1"
+      required: false
   - variable: port
     description: "Listen Port"
     group: "Server Config"

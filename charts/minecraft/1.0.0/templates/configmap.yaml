@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Release.Name }}
-data:
-  eula.txt: |
-    eula=true
-  server.properties: {{ toYaml .Values.server_props | indent 2 }}

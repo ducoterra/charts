@@ -13,9 +13,20 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      initContainers:
+      - name: get-version
+        image: {{ .Values.get_server.image }}
+        imagePullPolicy: Always
+        env:
+        - name: SERVER_VERSION
+          value: {{ .Values.server_version }}
+        volumeMounts:
+        - mountPath: /downloads
+          name: data
       containers:
       - name: {{ .Release.Name }}
         image: {{ .Values.image }}
+        imagePullPolicy: Always
         ports:
         - containerPort: 25565
         volumeMounts:
@@ -33,13 +44,13 @@ spec:
         - name: MAX_RAM
           value: {{ .Values.max_ram | quote }}
         - name: MIN_RAM
-          value: {{ .Values.max_ram | quote }}
+          value: "1"
         resources:
           requests:
-            memory: {{ .Values.max_ram }}Gi
+            memory: {{ div .Values.max_ram 2 }}Gi
             cpu: 1m
           limits:
-            memory: {{ .Values.max_ram }}Gi
+            memory: {{ add 1 .Values.max_ram }}Gi
             cpu: {{ .Values.max_cpu | quote }}
       volumes:
       - name: data
