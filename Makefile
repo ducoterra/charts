@@ -1,6 +1,8 @@
 SHELL := /bin/bash
 
-IMAGE ?= $(shell cat IMAGE):$(shell cat VERSION)
+PROJECT_NAME ?= $(shell git config --local remote.origin.url|sed -n 's#.*/\([^.]*\)\.git#\1#p')
+VERSION ?= $(shell cat VERSION)
+IMAGE ?= $(shell cat IMAGE):$(VERSION)
 IMAGE_LATEST ?= $(shell cat IMAGE):latest
 PWD ?= $(shell pwd)
 STASH ?= "common-update-stash"
@@ -23,14 +25,10 @@ make-stash-drop:
 
 .PHONY: make-update
 make-update:
-	@git stash save $(STASH)
-	-git subtree pull --prefix .gitlab git@gitlab.ducoterra.net:services/common.git main
-	@if [ ! -z "$$(git stash list | grep -r 'stash@{0}.*common')" ]; then git stash pop; fi
+	@git subtree pull --prefix .gitlab --message "Merge update from Common" -q common main
 
 .PHONY: make-push
 make-push: warning
 	@make make-update
-	@git remote add common git@gitlab.ducoterra.net:services/common.git
-	@git subtree push --prefix .gitlab common main
-	@git remote remove common
-	@make make-update
+	@git subtree split --branch common/$(PROJECT_NAME) --prefix .gitlab
+	@git push common common/$(PROJECT_NAME):common/$(PROJECT_NAME)
