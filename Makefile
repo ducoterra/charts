@@ -1,6 +1,8 @@
 SHELL := /bin/bash
 
-IMAGE ?= $(shell cat IMAGE):$(shell cat VERSION)
+PROJECT_NAME ?= $(shell git config --local remote.origin.url|sed -n 's#.*/\([^.]*\)\.git#\1#p')
+VERSION ?= $(shell cat VERSION)
+IMAGE ?= $(shell cat IMAGE):$(VERSION)
 IMAGE_LATEST ?= $(shell cat IMAGE):latest
 PWD ?= $(shell pwd)
 STASH ?= "common-update-stash"
