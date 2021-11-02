@@ -22,3 +22,8 @@ push:
 	@make buildx-context
 	docker buildx build --platform linux/amd64,linux/arm64 --push . -t $(IMAGE)
 	@docker buildx build --platform linux/amd64,linux/arm64 --push . -t $(IMAGE_LATEST)
+
+.PHONY: docker-release
+docker-release:
+	@yq e ".services.minecraft.image = \"$(IMAGE)\"" -i docker-compose.yaml
+	@make push
