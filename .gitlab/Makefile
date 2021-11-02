@@ -1,5 +1,6 @@
 SHELL := /bin/bash
 
+PROJECT_NAME ?= $(shell git config --local remote.origin.url|sed -n 's#.*/\([^.]*\)\.git#\1#p')
 VERSION ?= $(shell cat VERSION)
 IMAGE ?= $(shell cat IMAGE):$(VERSION)
 IMAGE_LATEST ?= $(shell cat IMAGE):latest
@@ -24,11 +25,10 @@ make-stash-drop:
 
 .PHONY: make-update
 make-update:
-	-git subtree pull --prefix .gitlab --message "Merge update from Common" -q git@gitlab.ducoterra.net:services/common.git main
+	@git subtree pull --prefix .gitlab --message "Merge update from Common" -q common main
 
 .PHONY: make-push
 make-push: warning
 	@make make-update
-	@git remote add common git@gitlab.ducoterra.net:services/common.git
-	@git subtree push --prefix .gitlab common main
-	@git remote remove common
+	@git subtree split --branch common/$(PROJECT_NAME) --prefix .gitlab
+	@git push common common/$(PROJECT_NAME):common/$(PROJECT_NAME)
