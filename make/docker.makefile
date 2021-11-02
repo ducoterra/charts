@@ -20,3 +20,10 @@ build:
 push:
 	docker buildx build --platform linux/amd64 --push . -t $(IMAGE)
 	@docker buildx build --platform linux/amd64 --push . -t $(IMAGE_LATEST)
+
+.PHONY: docker-release
+docker-release:
+	@git add .
+	@git commit -m "Automated release for version $(VERSION)"
+	@git tag $(VERSION)
+	@make push

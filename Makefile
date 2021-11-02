@@ -1,5 +1,6 @@
 SHELL := /bin/bash
 
+VERSION ?= $(shell cat VERSION)
 IMAGE ?= $(shell cat IMAGE):$(shell cat VERSION)
 IMAGE_LATEST ?= $(shell cat IMAGE):latest
 PWD ?= $(shell pwd)
