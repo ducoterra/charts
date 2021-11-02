@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-PROJECT_NAME ?= $(shell git config --local remote.origin.url|sed -n 's#.*/\([^.]*\)\.git#\1#p')
+PROJECT_NAME ?= $(shell git config --local remote.origin.url | sed -n 's\#.*/\([^.]*\)\.git\#\1\#p')
 VERSION ?= $(shell cat VERSION)
 IMAGE ?= $(shell cat IMAGE):$(VERSION)
 IMAGE_LATEST ?= $(shell cat IMAGE):latest
