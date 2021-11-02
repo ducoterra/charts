@@ -24,9 +24,7 @@ make-stash-drop:
 
 .PHONY: make-update
 make-update:
-	@git stash save $(STASH)
-	-git subtree pull --prefix .gitlab git@gitlab.ducoterra.net:services/common.git main
-	@if [ ! -z "$$(git stash list | grep -r 'stash@{0}.*common')" ]; then git stash pop; fi
+	@git subtree pull --prefix .gitlab --message "Merge update from Common" -q common main
 
 .PHONY: make-push
 make-push: warning
