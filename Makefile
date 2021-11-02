@@ -10,6 +10,7 @@ include .gitlab/make/docker.makefile
 include .gitlab/make/helm.makefile
 include .gitlab/make/kaniko.makefile
 include .gitlab/make/truenas.makefile
+include .gitlab/make/git.makefile
 
 .PHONY: warning
 warning:
