@@ -18,5 +18,7 @@ build:
 
 .PHONY: push
 push:
-	docker buildx build --platform linux/amd64 --push . -t $(IMAGE)
-	@docker buildx build --platform linux/amd64 --push . -t $(IMAGE_LATEST)
+	-make buildx-clear
+	@make buildx-context
+	docker buildx build --platform linux/amd64,linux/arm64 --push . -t $(IMAGE)
+	@docker buildx build --platform linux/amd64,linux/arm64 --push . -t $(IMAGE_LATEST)
